@@ -77,6 +77,14 @@ export default function App() {
           {/* Proof of Work */}
           <section id="work" style={styles.section}>
             <SectionTitle>proof of work</SectionTitle>
+             <Project
+  title="Intelleum — Entity-Level MEV Visibility (Solana)"
+  desc="An entity-level MEV visibility system for Solana. Reconstructs slot-level execution and rotating wallets into persistent MEV actors, enabling attribution of extraction across time, strategies, and slots. Focused on making execution risk measurable and transparent for protocols, LPs, and validators."
+  links={[
+    ["slides", "https://drive.google.com/file/d/1BnqPoLLcmtJEQCmnbyEP05ZINfbVbBln/view"],
+    ["site", "https://intelleum.vercel.app"]
+  ]}
+/>
 
             <Project
               title="Solana Cluster Detection System"
