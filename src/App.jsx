@@ -159,7 +159,7 @@ export default function App() {
                   </a>
                 </>
               }
-              time="2025 — Present"
+              time="  July 2025 — Jan 2026"
               points={[
                 "worked on a solana VWAP execution pipeline",
                 "ingested, normalized, and served clean on-chain market data",
