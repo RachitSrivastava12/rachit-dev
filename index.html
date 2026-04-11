@@ -1,13 +1,549 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/rachit.dev.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dev</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rachit Srivastava — Solana Developer & Tooling Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --border: #1e1e1e;
+  --text: #e0e0e0;
+  --text-dim: #707070;
+  --accent: #00ff88;
+  --accent-dim: rgba(0, 255, 136, 0.08);
+  --accent-border: rgba(0, 255, 136, 0.15);
+  --font: 'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--accent); color: var(--bg); }
+
+a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+a:hover { opacity: 0.7; }
+
+.container { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+
+/* ── HEADER ── */
+header {
+  padding: 80px 0 60px;
+  border-bottom: 1px solid var(--border);
+}
+
+.name {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 12px;
+}
+
+.links a {
+  color: var(--text-dim);
+  transition: color 0.2s;
+}
+
+.links a:hover { color: var(--accent); opacity: 1; }
+
+.links a span { color: var(--text-dim); margin-right: 4px; }
+
+/* ── SECTIONS ── */
+section {
+  padding: 48px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 32px;
+}
+
+/* ── GRANT HIGHLIGHT ── */
+.grant-card {
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.grant-card .grant-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.grant-card .grant-amount {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.grant-card .grant-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* ── EXPERIENCE ── */
+.exp-item {
+  margin-bottom: 28px;
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.exp-company {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.exp-role {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.exp-date {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.exp-details {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 6px;
+  line-height: 1.8;
+}
+
+/* ── PROJECTS ── */
+.project-grid {
+  display: grid;
+  gap: 2px;
+}
+
+.project {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 24px;
+  transition: border-color 0.3s;
+}
+
+.project:hover { border-color: var(--accent-border); }
+
+.project-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.project-links {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.project-links a {
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.project-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  opacity: 1;
+}
+
+.project-tagline {
+  font-size: 12px;
+  color: var(--accent);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.project-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+.project-tech {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.project-tech span {
+  font-size: 10px;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  letter-spacing: 0.5px;
+}
+
+/* ── EDUCATION ── */
+.edu-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.edu-detail {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 40px 0;
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+footer a { color: var(--text-dim); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  header { padding: 48px 0 40px; }
+  .name { font-size: 22px; }
+  .links { gap: 12px; }
+  .exp-header { flex-direction: column; gap: 2px; }
+  .project { padding: 18px; }
+  .project-top { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="name">Rachit Srivastava</div>
+    <div class="title">Solana Developer & Tooling Builder</div>
+    <div class="links">
+      <a href="mailto:rachitsrivastava76@gmail.com"><span>→</span> email</a>
+      <a href="https://x.com/Rachit_twts" target="_blank"><span>→</span> twitter</a>
+      <a href="https://linkedin.com/in/rachit-dhh" target="_blank"><span>→</span> linkedin</a>
+      <a href="https://github.com/RachitSrivastava12" target="_blank"><span>→</span> github</a>
+    </div>
+  </header>
+
+  <!-- GRANT -->
+  <section>
+    <div class="section-label">Recognition</div>
+    <div class="grant-card">
+      <div class="grant-title">Solana Foundation Grant via Superteam</div>
+      <div class="grant-amount">$5,000 USD</div>
+      <div class="grant-desc">
+        Awarded for building <a href="https://www.intelleum.in/" target="_blank">Intelleum</a> — an entity-level MEV intelligence layer on Solana.
+        <br><a href="https://superteam.fun/earn/t/rachit_sol" target="_blank">→ View on Superteam</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section>
+    <div class="section-label">Experience</div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <span class="exp-company"><a href="https://www.opsonchain.com/" target="_blank">Opsonchain</a></span>
+          <span class="exp-role"> — Developer</span>
+        </div>
+        <div class="exp-date">Jul 2025 – Jan 2026</div>
+      </div>
+      <div class="exp-details">
+        Built a Solana VWAP execution pipeline. Ingested, normalized, and served clean on-chain market data. Honorable Mention at the Solana Cypherpunk Hackathon.
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <span class="exp-company">Freelance</span>
+          <span class="exp-role"> — Solana & Web3 Developer</span>
+        </div>
+        <div class="exp-date">Aug 2024 – Present</div>
+      </div>
+      <div class="exp-details">
+        On-chain data ingestion and transformation pipelines for Solana-based execution and analytics systems. Worked directly with founders on protocol design, infra decisions, and production deployment.
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <span class="exp-company">Community & Ecosystem Contributor</span>
+        </div>
+        <div class="exp-date">2023 – 2024</div>
+      </div>
+      <div class="exp-details">
+        Hackathons, workshops, and developer initiatives across RiseIn & Web3 communities.
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section>
+    <div class="section-label">Projects</div>
+    <div class="project-grid">
+
+      <!-- quicknode-solana-kit -->
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">quicknode-solana-kit</div>
+          <div class="project-links">
+            <a href="https://www.npmjs.com/package/quicknode-solana-kit" target="_blank">npm</a>
+          </div>
+        </div>
+        <div class="project-tagline">TypeScript SDK for QuickNode Solana Add-ons</div>
+        <div class="project-desc">
+          npm package wrapping the full QuickNode Solana add-on ecosystem into one clean SDK. Metaplex DAS queries, live priority fee estimates with auto-injection, add-on diagnostics, and persistent WebSocket connections.
+        </div>
+        <div class="project-tech">
+          <span>TypeScript</span><span>npm</span><span>Solana</span><span>QuickNode</span><span>WebSocket</span>
+        </div>
+      </div>
+
+      <!-- Intelleum -->
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">Intelleum</div>
+          <div class="project-links">
+            <a href="https://www.intelleum.in/" target="_blank">live</a>
+            <a href="https://github.com/RachitSrivastava12/Intelleum" target="_blank">github</a>
+            <a href="https://www.youtube.com/watch?v=JlaIQEV9as0" target="_blank">video</a>
+          </div>
+        </div>
+        <div class="project-tagline">Entity MEV Intelligence Layer on Solana</div>
+        <div class="project-desc">
+          Reconstructs slot-level execution patterns and rotating wallets into persistent MEV actors. Built for protocols, LPs, and validators who need to understand who is extracting from them. Funded by a $5K Solana Foundation grant.
+        </div>
+        <div class="project-tech">
+          <span>Solana</span><span>MEV</span><span>Data Pipelines</span><span>Analytics</span>
+        </div>
+      </div>
+
+      <!-- SolRef -->
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">SolRef</div>
+          <div class="project-links">
+            <a href="https://www.solref.fun/" target="_blank">live</a>
+            <a href="https://github.com/RachitSrivastava12/SolRef" target="_blank">github</a>
+          </div>
+        </div>
+        <div class="project-tagline">Go-To Resource for Solana Infrastructure</div>
+        <div class="project-desc">
+          Deep-dive reference covering Solana data flow, execution pipeline, consensus, MEV, validator architecture, and RPC design. Consolidates primary sources from Solana docs, QuickNode, Helius, and Jito.
+        </div>
+        <div class="project-tech">
+          <span>Solana</span><span>Documentation</span><span>Infrastructure</span>
+        </div>
+      </div>
+
+      <!-- PumpTerminal -->
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">PumpTerminal</div>
+          <div class="project-links">
+            <a href="https://www.pumpterms.fun/" target="_blank">live</a>
+            <a href="https://github.com/RachitSrivastava12/pump-terminal" target="_blank">github</a>
+          </div>
+        </div>
+        <div class="project-tagline">Full Launch Alpha on Any pump.fun Mint</div>
+        <div class="project-desc">
+          Paste any fresh pump.fun mint → get bonding curve progress, buy simulations with real 1% pump.fee, top 20 holders + whale concentration score, and scoped network congestion with real priority fees.
+        </div>
+        <div class="project-tech">
+          <span>Solana</span><span>DeFi</span><span>pump.fun</span><span>Analytics</span>
+        </div>
+      </div>
+
+      <!-- DecClust -->
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">DecClust</div>
+          <div class="project-links">
+            <a href="https://dec-clust.vercel.app/" target="_blank">live</a>
+            <a href="https://github.com/RachitSrivastava12/dec-clust" target="_blank">github</a>
+          </div>
+        </div>
+        <div class="project-tagline">Real-Time Solana Cluster Detector</div>
+        <div class="project-desc">
+          Single-parent funding detection in &lt;10s with confidence scoring. Rug risk scoring, slot jitter labeling (bot/mix/human), dominant mint detection, live spend rate tracking, and multi-hop lineage tracking for bundler wallets.
+        </div>
+        <div class="project-tech">
+          <span>Solana</span><span>Wallet Analysis</span><span>Fraud Detection</span>
+        </div>
+      </div>
+
+      <!-- Transaction Fee Analyzer -->
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">Transaction Fee Analyzer</div>
+          <div class="project-links">
+            <a href="https://transaction-score.vercel.app/" target="_blank">live</a>
+            <a href="https://github.com/RachitSrivastava12/transaction-score-quicknode" target="_blank">github</a>
+          </div>
+        </div>
+        <div class="project-tagline">Did You Overpay?</div>
+        <div class="project-desc">
+          Paste any tx signature → know if your priority fee was on point. Shows overpay/underpay vs today's median, compute unit analysis, and lamport diff against current median fee.
+        </div>
+        <div class="project-tech">
+          <span>Solana</span><span>QuickNode</span><span>Priority Fees</span><span>CU Analysis</span>
+        </div>
+      </div>
+
+      <!-- Prophet -->
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">Prophet</div>
+          <div class="project-links">
+            <a href="https://prophet-lilac.vercel.app/" target="_blank">live</a>
+            <a href="https://github.com/RachitSrivastava12/Prophet" target="_blank">github</a>
+          </div>
+        </div>
+        <div class="project-tagline">Real-Time Solana Prediction Markets Dashboard</div>
+        <div class="project-desc">
+          1600+ live Kalshi prediction markets tokenized as SPL assets via dFlow. YES/NO price dashboard with 24h change, volume, open interest, and SSI staking benchmark with USDC yield calculator.
+        </div>
+        <div class="project-tech">
+          <span>Solana</span><span>Prediction Markets</span><span>dFlow</span><span>SPL</span>
+        </div>
+      </div>
+
+      <!-- Signal Terminal -->
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">Signal Terminal</div>
+          <div class="project-links">
+            <a href="https://signal-six-lime.vercel.app/" target="_blank">live</a>
+          </div>
+        </div>
+        <div class="project-tagline">Real-Time Solana DEX Trading Signal Engine</div>
+        <div class="project-desc">
+          Live signal dashboard powered by Bitquery Kafka PROTO streams. Detects whale swaps ($10k+), new token launches, and volume spikes across Solana DEXs in real time.
+        </div>
+        <div class="project-tech">
+          <span>Solana</span><span>Kafka</span><span>Bitquery</span><span>Real-time</span>
+        </div>
+      </div>
+
+      <!-- Solana Referral System -->
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">Solana Referral System</div>
+          <div class="project-links">
+            <a href="https://solana-referral.vercel.app/" target="_blank">live</a>
+            <a href="https://github.com/RachitSrivastava12/SolanaReferral" target="_blank">github</a>
+          </div>
+        </div>
+        <div class="project-tagline">On-Chain Incentive Distribution</div>
+        <div class="project-desc">
+          Smart contract-based referral system built with Anchor. On-chain incentive distribution using SPL tokens with verifiable reward transfers.
+        </div>
+        <div class="project-tech">
+          <span>Anchor</span><span>SPL Tokens</span><span>Smart Contracts</span>
+        </div>
+      </div>
+
+      <!-- Solana Explorer -->
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">Solana Blockchain Explorer</div>
+          <div class="project-links">
+            <a href="https://solana-explorer-ten.vercel.app/" target="_blank">live</a>
+            <a href="https://github.com/RachitSrivastava12/SolanaExplorer" target="_blank">github</a>
+          </div>
+        </div>
+        <div class="project-tagline">Multi-Network Explorer</div>
+        <div class="project-desc">
+          Switch between Mainnet, Devnet, and Testnet. Real-time blocks and transactions with Phantom wallet integration for personal tx history.
+        </div>
+        <div class="project-tech">
+          <span>Solana</span><span>Phantom</span><span>Multi-network</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section>
+    <div class="section-label">Education</div>
+    <div class="edu-name">GL Bajaj Institute of Technology and Management</div>
+    <div class="edu-detail">B.Tech in Artificial Intelligence & Machine Learning — Greater Noida, India</div>
+  </section>
+
+  <footer>
+    <a href="mailto:rachitsrivastava76@gmail.com">rachitsrivastava76@gmail.com</a>
+    <br><br>
+    built different. shipped onchain.
+  </footer>
+
+</div>
+
+</body>
 </html>
