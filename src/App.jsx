@@ -137,8 +137,31 @@ export default function App() {
             <SectionTitle>experience</SectionTitle>
 
             <Experience
+              role={
+                <>
+                  Founding Engineer @{" "}
+                  <a
+                    href="https://uselotus.xyz"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={styles.inlineLink}
+                  >
+                    Lotus
+                  </a>
+                </>
+              }
+              time="2026 — Present"
+              points={[
+                "building backend infrastructure for prediction-market execution across fragmented venues",
+                "working on market normalization and compatibility so markets across platforms can be discovered and compared consistently",
+                "developing execution-layer systems and APIs that help prediction-market apps access liquidity and route trades across venues",
+                "working closely with the founding team on core product and infrastructure decisions"
+              ]}
+            />
+
+            <Experience
               role="Freelance Web3 Backend & Infrastructure Engineer"
-              time="Aug 2024 — Present"
+              time="Aug 2024 — 2026"
               points={[
                 "built real-time on-chain ingestion and transformation pipelines on solana",
                 "designed backend systems for execution, analytics, and monitoring infra",
